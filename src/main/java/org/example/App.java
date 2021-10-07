@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 //FULL ROSTER:
 //Cima, Simo, Pacio, Deda, Faez, GG, Vito, Pippo, Guerra, Conte, Paolino, Marco7Miglia, Ale
@@ -20,9 +19,6 @@ public class App
         Gson gson = new Gson();
         Roster roster = gson.fromJson(new FileReader("src/Json/roster.json"), Roster.class);
 
-        //roster.getAverages();
-
-        ///////
         String[] players = {"Cima", "Paolino", "Marco7Miglia", "Ale", "Deda", "Conte", "Pippo", "Guerra", "Vito", "Simo"};
         Player[] nextGame = new Player[10];
         int counter = 0;
@@ -45,11 +41,32 @@ public class App
         int ar[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
         shuffleArray(ar);
 
+        Team team1 = new Team();
+        Team team2 = new Team();
+        for (int i = 0; i < ar.length; i++){
+            if (i < 5) team1.setPlayer( i, nextGame[ar[i]]);
+            else team2.setPlayer(i-5, nextGame[ar[i]]);
+        }
+
+        System.out.println("\nTEAM1-AVG: " + team1.getTotal() + "\nTEAM2-AVG: " + team2.getTotal());
+
+        Random rand = new Random();
+        while (team2.getTotal() > team1.getTotal() + 10 || team2.getTotal() < team1.getTotal() - 10){
+            int index1 = rand.nextInt(5);
+            int index2 = rand.nextInt(5);
+            team1.switchPlayers(index1, index2, team2);
+        }
+
+        System.out.println("\n\n\t\t---FINAL TEAMS---");
+        team1.printTeam();
+        System.out.println();
+        team2.printTeam();
+        System.out.println("\nTEAM1-AVG: " + team1.getTotal() + "\nTEAM2-AVG: " + team2.getTotal());
+
         /*
         for (int i = 0; i < ar.length; i++)
             System.out.print(ar[i] + ", ");
         System.out.println();
-         */
 
         Player[] team1 = new Player[5];
         Player[] team2 = new Player[5];
@@ -84,6 +101,7 @@ public class App
             team2TOT += team2[index2].getAVG();
         }
 
+
         System.out.println("\n\n\t\t---FINAL TEAMS---");
         System.out.println("\nTeam 1:");
         for (int i = 0; i < team1.length; i++) {
@@ -96,7 +114,7 @@ public class App
         }
 
         System.out.println("\nTEAM1-AVG: " + team1TOT + "\nTEAM2-AVG: " + team2TOT);
-
+        */
     }
 
 
