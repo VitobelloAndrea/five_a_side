@@ -10,4 +10,4 @@ let's face it, the original code was damn awful so this commit was vital more th
 
 # Commit 21/10:
 Well, now I can make teams of whatever reason given that they are of the same size (guess I should add a couple of exceptions to take care of those odd cases huh). With the last update the user only needs to set the nicknames of the players that will participate and the maximum difference of average between the two teams. Everything works ***provided that the number of players is even lmao beware of quality coding***.
-Oh, though this way the whole name of the project becomes obsolete but I'm too lazy to change it for now, so whatever.
+Oh, though this way the name of the repository becomes obsolete but I'm too lazy to change it for now, so whatever.
