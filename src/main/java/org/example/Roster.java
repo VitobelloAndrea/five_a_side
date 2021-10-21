@@ -8,7 +8,7 @@ public class Roster {
     private Player[] roster;
 
     public Roster() {
-        roster = new Player[13];
+        roster = new Player[16];
     }
 
     public Player[] getRoster() {
@@ -44,11 +44,13 @@ public class Roster {
         }
     }
 
-    public void makeTeams(String[] players, Team team1, Team team2){
-        Player[] nextGame = new Player[10];
+    public void makeTeams(String[] players, Team team1, Team team2, int maxTeamDifference){
+        int size = players.length;
+
+        Player[] nextGame = new Player[size];
         int counter = 0;
         for (int i = 0; i < roster.length; i++){
-            for (int j = 0; j < players.length; j++) {
+            for (int j = 0; j < size; j++) {
                 Player selected = roster[i];
                 if (selected.getName().equals(players[j])) {
                     nextGame[counter] = new Player(players[j], selected.getES(), selected.getBS(), selected.getSHO(), selected.getDEF(), selected.getPHY(), selected.getCON());
@@ -57,18 +59,20 @@ public class Roster {
             }
         }
 
-        int ar[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int ar[] = new int[size];
+        for (int i = 0; i < ar.length; i++)
+            ar[i] = i;
         shuffleArray(ar);
 
         for (int i = 0; i < ar.length; i++){
-            if (i < 5) team1.setPlayer( i, nextGame[ar[i]]);
-            else team2.setPlayer(i-5, nextGame[ar[i]]);
+            if (i < size/2) team1.setPlayer( i, nextGame[ar[i]]);
+            else team2.setPlayer(i- size/2, nextGame[ar[i]]);
         }
 
         Random rand = new Random();
-        while (team2.getTotal() > team1.getTotal() + 10 || team2.getTotal() < team1.getTotal() - 10){
-            int index1 = rand.nextInt(5);
-            int index2 = rand.nextInt(5);
+        while (team2.getTotal() > team1.getTotal() + maxTeamDifference || team2.getTotal() < team1.getTotal() - maxTeamDifference){
+            int index1 = rand.nextInt(size/2);
+            int index2 = rand.nextInt(size/2);
             team1.switchPlayers(index1, index2, team2);
         }
     }

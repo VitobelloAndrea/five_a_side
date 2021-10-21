@@ -3,8 +3,8 @@ package org.example;
 public class Team {
     private Player[] players;
 
-    public Team(){
-        players = new Player[5];
+    public Team(int numberOfPlayers){
+        players = new Player[numberOfPlayers];
     }
 
     public void setPlayer(int index, Player player){
