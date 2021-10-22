@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class Roster {
-    private Player[] roster;
+    private final Player[] roster;
 
     public Roster() {
         roster = new Player[16];
